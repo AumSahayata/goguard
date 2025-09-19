@@ -39,6 +39,10 @@ func ScanModules(modules []parser.Module) ([]ModuleResult, error) {
 		}
 
 		license, risky, err := checkLicense(mod.Path)
+		if err != nil {
+			// log but don’t stop
+			fmt.Printf("warning: license check failed for %s@%s: %v\n", mod.Path, mod.Version, err)
+		}
 
 		cves, err := checkVulnerabilities(mod.Path, mod.Version)
 		if err != nil {
