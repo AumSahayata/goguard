@@ -6,7 +6,12 @@ import (
 	"golang.org/x/mod/modfile"
 )
 
-func ParseGoMod(path string) ([]string, error) {
+type Module struct {
+	Path    string
+	Version string
+}
+
+func ParseGoMod(path string) ([]Module, error) {
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
@@ -17,9 +22,12 @@ func ParseGoMod(path string) ([]string, error) {
 		return nil, err
 	}
 
-	var modules []string
+	var modules []Module
 	for _, r := range modFile.Require {
-		modules = append(modules, r.Mod.Path+"@"+r.Mod.Version)
+		modules = append(modules, Module{
+			Path:    r.Mod.Path,
+			Version: r.Mod.Version,
+		})
 	}
 
 	return modules, nil

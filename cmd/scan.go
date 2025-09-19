@@ -8,7 +8,7 @@ import (
 )
 
 var scanCmd = &cobra.Command{
-	Use: "scan",
+	Use:   "scan",
 	Short: "Scan the current Go project",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		mods, err := parser.ParseGoMod("go.mod")

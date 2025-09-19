@@ -1,7 +1,7 @@
 package reporter
 
 import (
-	"fmt"
+	"log"
 	"os"
 
 	"github.com/AumSahayata/goguard/internal/scanner"
@@ -10,15 +10,16 @@ import (
 
 func PrintTable(result []scanner.ModuleResult) {
 	table := tablewriter.NewWriter(os.Stdout)
-	table.Header([]string{"Module", "Version", "Latest", "Vulnerable", "CVES"})
+	table.Header([]string{"Module", "Version", "Latest", "Status", "Issues"})
 	var err error
+
 	for _, r := range result {
 		err = table.Append([]string{
 			r.Name,
 			r.Version,
 			r.Latest,
-            fmt.Sprintf("%v", r.Vulnerable),
-            fmt.Sprintf("%v", r.CVEs),
+			r.Status,
+			r.Issues,
 		})
 		if err != nil {
 			continue
@@ -27,6 +28,6 @@ func PrintTable(result []scanner.ModuleResult) {
 
 	err = table.Render()
 	if err != nil {
-		fmt.Printf("Failed to render table: %v\n", err)
+		log.Fatalf("Failed to render table: %v\n", err)
 	}
 }
