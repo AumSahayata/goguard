@@ -8,9 +8,9 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "goguard",
-	Short: "Go Supply Chain Guard - scan Go projects for vulnerabilities",
+	Short: "Go Guard - scan Go projects for vulnerabilities",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Run `gosupplyguard scan` to start scanning.")
+		fmt.Println("Run `goguard scan` to start scanning.")
 	},
 }
 
