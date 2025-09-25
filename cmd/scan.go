@@ -15,7 +15,13 @@ var verbose bool
 
 var scanCmd = &cobra.Command{
 	Use:   "scan",
-	Short: "Scan the current Go project",
+	Short: "Scan the current Go project for vulnerabilities, outdated dependencies, repo and license issues",
+	Long: `Scan the current Go project in-depth. 
+Exit codes:
+  0 -> Scan completed successfully, no issues
+  1 -> Warnings found (outdated or stale dependencies)
+  2 -> Vulnerabilities detected (CVEs found)
+You can use --json or --json-file to export results.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 
 		cmd.SilenceUsage = true // Do not print usage for this specific error
