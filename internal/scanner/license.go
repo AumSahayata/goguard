@@ -1,7 +1,6 @@
 package scanner
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"strings"
@@ -31,7 +30,7 @@ func checkLicense(modulePath string) (string, bool, error) {
 	}
 
 	if content == "" {
-		return "Unknown", false, fmt.Errorf("license file not found")
+		return "Unknown", false, nil
 	}
 
 	if strings.Contains(content, "MIT License") {
