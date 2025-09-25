@@ -49,6 +49,8 @@ func ScanModules(modules []parser.Module) ([]ModuleResult, error) {
 			// log but don’t stop
 			fmt.Printf("warning: vuln check failed for %s@%s: %v\n", mod.Path, mod.Version, err)
 			cves = []string{}
+		} else if cves == nil {
+			cves = []string{}
 		}
 
 		var coloredStatus string
