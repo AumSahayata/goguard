@@ -77,7 +77,7 @@ Fails even for warnings
 name: GoGuard Scan
 
 on:
-  pull-request:
+  pull_request:
     branches: [main]
 
 jobs:
