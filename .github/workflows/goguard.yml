@@ -1,12 +1,12 @@
 name: GoGuard Scan
 
 on:
-  push:
-    branches: [dev]
+  pull-request:
+    branches: [main]
 
 jobs:
   goguard:
-    name: Goguard
+    name: GoGuard
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
