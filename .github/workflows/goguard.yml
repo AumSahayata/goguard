@@ -2,14 +2,23 @@ name: GoGuard Scan
 
 on:
   push:
+    branches: [dev]
 
 jobs:
-  scan:
+  goguard:
+    name: Goguard
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-go@v4
-      with:
-        go-version: '1.21'
-      - run: go install github.com/yourusername/goguard@latest
-      - run: goguard scan --json-file report.json --verbose
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+      - name: Install goguard
+        run: go install github.com/yourusername/goguard@latest
+      
+      - name: Run gogurad
+        run: goguard scan --json-file report.json --verbose
