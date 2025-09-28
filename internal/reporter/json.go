@@ -10,7 +10,6 @@ import (
 )
 
 func PrintJSON(result []scanner.ModuleResult, outputJSON string) {
-
 	for i := range result {
 		result[i].Status = StripANSI(result[i].Status)
 	}
