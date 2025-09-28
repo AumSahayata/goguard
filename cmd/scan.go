@@ -78,8 +78,8 @@ You can use --json or --json-file to export results.`,
 func init() {
 	scanCmd.Flags().BoolVarP(&strict, "strict", "s", false, "Exit with non-zero code on warnings")
 	scanCmd.Flags().BoolVarP(&verbose, "verbose", "v", false, "Enable verbose output for exit codes.")
-	scanCmd.Flags().BoolP("json", "j", false, "Print output as json on the console.")
-	scanCmd.Flags().StringVarP(&jsonFile, "json-file", "f", "", "Write results to an JSON file.")
+	scanCmd.Flags().BoolP("json", "j", false, "Print output as JSON on the console.")
+	scanCmd.Flags().StringVarP(&jsonFile, "json-file", "f", "", "Write results to a JSON file.")
 	scanCmd.Flags().StringVarP(&htmlFile, "html-file", "t", "", "Write results to an HTML file.")
 
 	rootCmd.AddCommand(scanCmd)
