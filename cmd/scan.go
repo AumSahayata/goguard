@@ -10,8 +10,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var outputFile string
-var verbose bool
+var jsonFile, htmlFile string
+var verbose, strict bool
 
 var scanCmd = &cobra.Command{
 	Use:   "scan",
@@ -20,7 +20,7 @@ var scanCmd = &cobra.Command{
 Exit codes:
   0 -> Scan completed successfully, no issues
   1 -> Warnings found (outdated or stale dependencies)
-  2 -> Vulnerabilities detected (CVEs found)
+  2 -> Archived, Vulnerabilities detected (CVEs found)
 You can use --json or --json-file to export results.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 
@@ -44,15 +44,19 @@ You can use --json or --json-file to export results.`,
 		}
 
 		// output
-		if jsonOutput {
+		if htmlFile != "" {
+			if err := reporter.PrintHTML(results, htmlFile); err != nil {
+				return err
+			}
+		} else if jsonOutput {
 			reporter.PrintJSON(results, "")
-		} else if outputFile != "" {
-			reporter.PrintJSON(results, outputFile)
+		} else if jsonFile != "" {
+			reporter.PrintJSON(results, jsonFile)
 		} else {
 			reporter.PrintTable(results)
 		}
 
-		exitCode, reasons := codes.EvaluateExit(results)
+		exitCode, reasons := codes.EvaluateExit(results, strict)
 
 		if verbose && len(reasons) > 0 {
 			fmt.Println("Exit code reasons:")
@@ -72,9 +76,11 @@ You can use --json or --json-file to export results.`,
 }
 
 func init() {
+	scanCmd.Flags().BoolVarP(&strict, "strict", "s", false, "Exit with non-zero code on warnings")
 	scanCmd.Flags().BoolVarP(&verbose, "verbose", "v", false, "Enable verbose output for exit codes.")
-	scanCmd.Flags().BoolP("json", "j", false, "Print output as json on the console.")
-	scanCmd.Flags().StringVarP(&outputFile, "json-file", "f", "", "Get output in a json file.")
+	scanCmd.Flags().BoolP("json", "j", false, "Print output as JSON on the console.")
+	scanCmd.Flags().StringVarP(&jsonFile, "json-file", "f", "", "Write results to a JSON file.")
+	scanCmd.Flags().StringVarP(&htmlFile, "html-file", "t", "", "Write results to an HTML file.")
 
 	rootCmd.AddCommand(scanCmd)
 }

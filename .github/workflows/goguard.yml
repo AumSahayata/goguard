@@ -1,0 +1,23 @@
+name: GoGuard Scan
+
+on:
+  pull-request:
+    branches: [main]
+
+jobs:
+  goguard:
+    name: GoGuard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+      - name: Install goguard
+        run: go install github.com/AumSahayata/goguard@latest
+      
+      - name: Run gogurad
+        run: goguard scan --json-file report.json --verbose

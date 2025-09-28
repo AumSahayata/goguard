@@ -30,7 +30,7 @@ func checkLicense(modulePath string) (string, bool, error) {
 	}
 
 	if content == "" {
-		return "Unknown", false, nil
+		return "Unknown", true, nil
 	}
 
 	if strings.Contains(content, "MIT License") {
