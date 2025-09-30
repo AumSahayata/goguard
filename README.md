@@ -4,12 +4,12 @@
 
 Go Guard is a CLI tool + GitHub Action for scanning Go projects to detect: Vulnerabilities, Outdated dependencies, Unmaintained packages, License risks. It helps developers keep Go projects secure, up-to-date, and compliant with minimal effort.
 
-> 🚀 Current version: **v0.3.0**
+> 🚀 Current version: **v0.4.0**
 
 
 ## ✨ Features
 
-- 🔍 Scan `go.mod` / `go.sum` dependencies
+- 🔍 Scan `go.mod` dependencies
 - 🛡️ Detect vulnerable dependencies using [Go vulnerability database](https://pkg.go.dev/vuln)  
 - 📦 Check for outdated dependencies via the Go proxy
 - 🏚️ Detect unmaintained repos (archived or stale >2 years)
