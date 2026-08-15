@@ -1,10 +1,14 @@
 # goguard
 
+![Go Version](https://img.shields.io/github/go-mod/go-version/AumSahayata/goguard)
+![Latest Release](https://img.shields.io/github/v/release/AumSahayata/goguard)
+![License](https://img.shields.io/github/license/AumSahayata/goguard)
+
 🔐 Keep your Go dependencies secure, up-to-date, and compliant.
 
 Go Guard is a CLI tool + GitHub Action for scanning Go projects to detect: Vulnerabilities, Outdated dependencies, Unmaintained packages, License risks. It helps developers keep Go projects secure, up-to-date, and compliant with minimal effort.
 
-> 🚀 Current version: **v0.4.0**
+> 🚀 Current version: **v0.3.0**
 
 
 ## ✨ Features
@@ -96,11 +100,14 @@ jobs:
       - name: Install goguard
         run: go install github.com/AumSahayata/goguard@latest
       
-      - name: Run gogurad
+      - name: Run goguard
         run: goguard scan --json-file report.json --verbose
 ```
 
 ## 📊 Example Output
+
+<img width="1385" height="256" alt="image" src="https://github.com/user-attachments/assets/8d41656d-eb1c-4c81-81bb-83414cc1c803" />
+
 
 ### Table Output
 
