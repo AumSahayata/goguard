@@ -8,7 +8,7 @@
 
 Go Guard is a CLI tool + GitHub Action for scanning Go projects to detect: Vulnerabilities, Outdated dependencies, Unmaintained packages, License risks. It helps developers keep Go projects secure, up-to-date, and compliant with minimal effort.
 
-> 🚀 Current version: **v0.3.0**
+> 🚀 Current version: **v0.4.0**
 
 
 ## ✨ Features
@@ -17,6 +17,8 @@ Go Guard is a CLI tool + GitHub Action for scanning Go projects to detect: Vulne
 - 🛡️ Detect vulnerable dependencies using [Go vulnerability database](https://pkg.go.dev/vuln)  
 - 📦 Check for outdated dependencies via the Go proxy
 - 🏚️ Detect unmaintained repos (archived or stale >2 years)
+- 💾 Result Caching
+- ♻️ Upgrade helper  
 - ⚖️ Identify licenses (via GitHub `LICENSE` file)
 - 📊 Output as **table** or **JSON** or **HTML**
 - 🚪 Exit codes for CI pipelines (see below)
@@ -75,6 +77,23 @@ goguard scan --strict
 ```
 Fails even for warnings
 
+### Upgrade helper: show suggested upgrade commands
+```bash
+goguard upgrade
+# Example output:
+# Suggested commands to update:
+# github.com/gin-gonic/gin: go get github.com/gin-gonic/gin@latest
+# golang.org/x/mod: go get golang.org/x/mod@latest
+
+# Use --execute to run the commands:
+goguard upgrade --execute
+```
+
+### Do not use cached results
+```bash
+goguard scan --no-cache
+```
+
 ## GitHub Actions Workflow Example
 
 ```yml
@@ -95,7 +114,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.24'
+          go-version: '1.25'
 
       - name: Install goguard
         run: go install github.com/AumSahayata/goguard@latest
