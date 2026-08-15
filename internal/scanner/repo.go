@@ -9,7 +9,14 @@ import (
 )
 
 func checkRepoStatus(modulePath string) (bool, bool, error) {
-	mod := strings.TrimPrefix(modulePath, "github.com/")
+	var mod string = ""
+
+	if after, ok := strings.CutPrefix(modulePath, "github.com/"); ok {
+		mod = after
+	} else {
+		return false, false, nil
+	}
+
 	url := "https://api.github.com/repos/" + mod
 
 	resp, err := http.Get(url)
